@@ -1,0 +1,21 @@
+{
+  "name": "handwriting-reader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "handwriting",
+    "reader"
+  ],
+  "author": "Mitrajit Chandra Chandra",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/cognitiveservices-computervision": "^8.1.0",
+    "async": "^3.2.2",
+    "dotenv": "^10.0.0"
+  }
+}
