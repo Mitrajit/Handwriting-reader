@@ -1,5 +1,7 @@
 const express = require("express");
 const multer = require('multer');
+
+// Defining multer instance for destination and file name
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/')
@@ -9,11 +11,12 @@ const storage = multer.diskStorage({
       cb(null, uniqueSuffix+'-'+file.originalname)
     }
   });
+// Creating the multer instance
 const upload = multer({ storage: storage });
 const router = express.Router();
+// Main upload page
 router.get("/", (req, res) => {
     // open the HTML file
-    console.log(__dirname);
     res.sendFile("views/upload.html", {root: __dirname+"/../"});
 });
 
