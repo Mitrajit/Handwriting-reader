@@ -1,10 +1,11 @@
+require("dotenv").config();
 const path = require('path');
 const express = require("express");
 const app = express();
+const upload = require("./routers/upload");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-const upload = require("./routers/upload");
 
 app.use('/js', express.static(path.join(__dirname, '/views/js')));
 
