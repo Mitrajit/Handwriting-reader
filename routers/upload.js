@@ -56,7 +56,7 @@ router.post("/ocrcheck",async (req,res)=>{
   }
   catch(err){
     console.log(err);
-    res.status(500).json(Object.assign(err,{status: 'failed'}));
+    res.status(500).json({status: 'failed', error: err});
   }
 });
 module.exports = router;

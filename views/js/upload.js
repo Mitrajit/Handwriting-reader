@@ -33,7 +33,7 @@ async function ocrcheckup() {
         if (responsejson.status === "succeeded") {
             document.querySelector("#status").innerHTML = "<h1>OCR has succeeded</h1>";
             clearInterval(checkupinterval);
-            window.location.href = "/result/" + responsejson.operationId;
+            window.location.href = "/result/" + json.operationId;
         }
         else if (responsejson.status === "failed") {
             clearInterval(checkupinterval);
