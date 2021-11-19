@@ -1,5 +1,6 @@
 const path = require('path');
-const createReadStream = require('fs').createReadStream;
+const fs = require('fs');
+const createReadStream = fs.createReadStream;
 const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient;
 const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
 /**
@@ -23,6 +24,10 @@ async function OCRupload(handwrittenImagePath) {
     // Get the operation ID at the end of the URL
     const operationIdLocal = operationLocationLocal.substring(operationLocationLocal.lastIndexOf('/') + 1);
     console.log('Operation ID:', operationIdLocal);
+    fs.unlink(handwrittenImagePath, (err) => {
+        if (err) throw err;
+        console.log(`${handwrittenImagePath} was deleted`);
+      });
     return operationIdLocal;
 }
 
