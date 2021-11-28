@@ -7,7 +7,7 @@ fetch(window.location.pathname + '/text', {
 }).then(function (data) {
     for (const textRecResult of data.content) {
         for (const line of textRecResult.lines) {
-            ocrtext.innerHTML += line.text + "\n";
+            ocrtext.innerHTML += line.text + "<br>";
         }
     }
 }).catch(function (err) {

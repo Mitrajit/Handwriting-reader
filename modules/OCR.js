@@ -3,6 +3,8 @@ const fs = require('fs');
 const createReadStream = fs.createReadStream;
 const ComputerVisionClient = require('@azure/cognitiveservices-computervision').ComputerVisionClient;
 const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
+const reader = require('./reader');
+
 /**
  * AUTHENTICATE
  * This single client is used for all examples.
@@ -27,7 +29,7 @@ async function OCRupload(handwrittenImagePath) {
     fs.unlink(handwrittenImagePath, (err) => {
         if (err) throw err;
         console.log(`${handwrittenImagePath} was deleted`);
-      });
+    });
     return operationIdLocal;
 }
 
@@ -41,13 +43,23 @@ async function OCRcheck(operationId) {
         console.log('The Read File operation was a success.');
         console.log();
         console.log('Read File local image result:');
-        
+        let text = "";
+        for (const textRecResult of readOpResult.analyzeResult.readResults) {
+            for (const line of textRecResult.lines) {
+                text += line.text + "\n";
+            }
+        }
+        try {
+            await reader(operationId, text);
+        } catch (err) {
+            console.log(err);
+        }
         return {
             status: "succeeded",
             content: readOpResult.analyzeResult.readResults
         };
     }
-    return {status: readOpResult.status};
+    return { status: readOpResult.status };
 }
 
 module.exports = {

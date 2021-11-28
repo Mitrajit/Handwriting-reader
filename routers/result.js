@@ -35,7 +35,7 @@ router.get("/:id/text",async (req,res)=>{
 
 router.get("/:id/audio", (req, res)=>{
   console.log(req.params.id);
-  res.sendFile("audios/"+req.params.id+".mp3",{root: __dirname+"/../"});
+  res.sendFile("audios/"+req.params.id+".wav",{root: __dirname+"/../"});
 });
 
 module.exports = router;

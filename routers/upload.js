@@ -1,6 +1,9 @@
 const express = require("express");
 const multer = require('multer');
 const {OCRupload, OCRcheck} = require("../modules/OCR");
+const fs = require("fs");
+// Create uploads directory if it doesn't exist
+fs.existsSync("./uploads") || fs.mkdirSync("./uploads");
 
 // Defining multer instance for destination and file name
 const storage = multer.diskStorage({
