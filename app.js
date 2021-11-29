@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/js', express.static(path.join(__dirname, '/views/js')));
+app.use('/css', express.static(path.join(__dirname, '/views/css')));
 app.use('/audio', express.static(path.join(__dirname, '/audios')));
 
 app.use("/", upload);
