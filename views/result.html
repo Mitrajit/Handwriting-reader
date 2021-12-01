@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Handwriting Reader</title>
+    <link rel="stylesheet" href="/css/result.css">
 </head>
+
 <body>
-    <h1>The recognised text is </h1>
-    <div id="ocrtext"></div>
-    <audio controls>
-        <source type="audio/wav">
-      Your browser does not support the audio element.
-      </audio>
+    <div id="header">
+        <h1>Handwriting Reader</h1>
+        <h2>Given text found</h2>
+    </div>
+    <Section>
+    <div class="container">
+        <p id="ocrtext">
+            Your scanned text.
+        </p>
+    </div>
+    <div class="credit">
+        Created by <a href="https://github/com/Mitrajit"><i><strong>Mitrajit Chandra</strong></i></a>
+        as a part of Future Ready Talent internship project
+    </div>
+    </Section>
+    <div id="footer">
+        <audio controls>
+            <source type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
     <script src="/js/result.js"></script>
+    <div class="shape-blob"></div>
+    <div class="shape-blob one"></div>
+    <div class="shape-blob two"></div>
 </body>
+
 </html>

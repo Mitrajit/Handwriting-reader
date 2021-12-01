@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,900');
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  z-index: 5;
+}
+#footer audio {
+  /* padding top and botton 10px */
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+  width: 95%;
+}
+
+#header {
+  position : relative;
+  width: fit-content;
+  position:relative;
+  margin: auto;
+  text-align: center;
+  z-index: 4;
+  font-family: 'playfair display';
+  color: white;
+}
+
+.container {
+  width: 90%;
+  position: relative;
+  margin: auto;
+  background-color: rgb(43 60 64 / 55%);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+section{
+  z-index: 4;
+  width: 90%;
+  position: relative;
+  margin: auto;
+  margin-bottom: 74px;
+}
+
+.credit, :-webkit-any-link{
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  font-family: 'roboto';
+  color: #ddd;
+  line-height: 40px;
+  /* no underline */
+  text-decoration: none;
+  /* italics */
+}
+
+#ocrtext {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: inline;
+  margin: auto;
+  width: inherit;
+  color: #ddd;
+  font-family: 'Roboto';
+  line-height: 1.6;
+}
+
+
+body {
+	margin: 0;
+	padding: 0;
+  background-color: #485461;
+  overflow-x:hidden;
+}
+
+.shape-blob {
+	background:#0add96;
+	height: 200px;
+	width: 200px;
+	border-radius: 30% 50% 20% 40%;
+  	animation: 
+		transform 20s ease-in-out infinite both alternate,
+		movement_one 40s ease-in-out infinite both;
+	opacity:.7;
+	position: absolute;
+	left: 70%;
+	top: 50%;
+}
+.shape-blob.one{
+	height: 500px;
+	width: 500px;
+	left: -200px;
+	top: -150px;
+	transform: rotate(-180deg);
+	animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
+}
+
+.shape-blob.two{
+	height: 350px;
+	width: 350px;
+	left: 500px;
+	top: -150px;
+	transform: rotate(-180deg);
+	animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
+}
+
+@keyframes transform
+{
+    0%,
+  100% { border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%; } 
+   20% { border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%; } 
+   40% { border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%; } 
+   60% { border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%; } 
+   80% { border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%; } 
+}
+
+
+@keyframes movement_one
+{
+    0%,
+  100% { transform: none; }
+   50% { transform: translate(50%, 20%) rotateY(10deg) scale(1.2); }
+}
+
+@keyframes movement_two
+{
+    0%,
+  500% { transform: none; }
+   50% { transform: translate(50%, 20%) rotate(-200deg) scale(1.2);}
+}
