@@ -27,10 +27,8 @@ router.get("/", (req, res) => {
 router.post("/upload", upload.single('handwriting'), async (req, res) => {
     try{
     if(req.file) {
-        console.log(req.file);
         // Call the OCR service
         const operationId = await OCRupload(__dirname+"/../"+req.file.path);
-        console.log("Operation ID /upload:", operationId);
         res.status(200).json(Object.assign(req.file,{operationId: operationId}));
     }
     else throw 'File not uploaded';
@@ -44,11 +42,12 @@ router.post("/upload", upload.single('handwriting'), async (req, res) => {
 router.post("/ocrcheck",async (req,res)=>{
   try{
     // Check if the operation is done
-    const {operationId} = req.body;
+    const { operationId } = req.body;
+    if (fs.existsSync("./audios/" + operationId + ".wav"))
+      return res.status(200).json({ status: "succeeded" });
     const output = await OCRcheck(operationId);
-    console.log(output);
-    console.log("The texts are:");
     if (output.status === "succeeded") {
+      console.log("The texts are:");
       for (const textRecResult of output.content) {
         for (const line of textRecResult.lines) {
           console.log(line.text)

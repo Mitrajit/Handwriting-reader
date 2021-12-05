@@ -40,9 +40,6 @@ async function OCRcheck(operationId) {
     console.log('Read status: ' + readOpResult.status)
 
     if (readOpResult.status === "succeeded") {
-        console.log('The Read File operation was a success.');
-        console.log();
-        console.log('Read File local image result:');
         let text = "";
         for (const textRecResult of readOpResult.analyzeResult.readResults) {
             for (const line of textRecResult.lines) {
