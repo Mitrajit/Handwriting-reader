@@ -6,10 +6,20 @@ const fs = require("fs");
 fs.existsSync("./audios") || fs.mkdirSync("./audios");
 
 async function reader(operationId, text) {
+    // Exit reader operation if operation was already done
+    if(fs.existsSync("./audios/" + operationId + ".wav")) 
+        return 0;
     // now create the audio-config pointing to our stream and the speech config specifying the language.
     const audioConfig = sdk.AudioConfig.fromAudioFileOutput(__dirname + "/../audios/" + operationId + ".wav");
     const speechConfig = sdk.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
 
+    // Check if audio folder hasn't exceeded 200MB
+    try{
+    sizeCheck();
+    }catch(err){
+        console.log("Problem in size check");
+        console.log(err);
+    }
     // create the speech synthesizer.
     let synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
     await new Promise((resolve, reject) => {
@@ -37,4 +47,27 @@ async function reader(operationId, text) {
     });
 }
 
+function sizeCheck() {
+    return new Promise((resolve, reject) => {
+        // Check if the audios directory is larget than 200MB
+        const files = fs.readdirSync("./audios");
+        let size = 0;
+        files.forEach(file => {
+            size += fs.statSync("./audios/" + file).size;
+        });
+        if (size > 200 * 1024 * 1024) {
+            // Delete the oldest files upto 10MB
+            files.sort((a, b) => {
+                return fs.statSync("./audios/" + a).mtime.getTime() - fs.statSync("./audios/" + b).mtime.getTime();
+            });
+            let deletedsize = 0;
+            for (let i = 0; deletedsize < 10 * 1024 * 1024; i++) {
+                deletedsize += fs.statSync("./audios/" + files[i]).size;
+                fs.unlinkSync("./audios/" + files[i]);
+                console.log("Deleting " + files[i]);
+            }
+        }
+        resolve();
+    });
+}
 module.exports = reader;
