@@ -7,10 +7,11 @@ fs.existsSync("./audios") || fs.mkdirSync("./audios");
 
 async function reader(operationId, text) {
     // Exit reader operation if operation was already done
-    if(fs.existsSync("./audios/" + operationId + ".wav")) 
+    if(fs.existsSync("./audios/" + operationId + "/processing.mp3") || fs.existsSync("./audios/" + operationId + "/audio.mp3")) 
         return 0;
+    fs.mkdirSync("./audios/" + operationId);
     // now create the audio-config pointing to our stream and the speech config specifying the language.
-    const audioConfig = sdk.AudioConfig.fromAudioFileOutput(__dirname + "/../audios/" + operationId + ".wav");
+    const audioConfig = sdk.AudioConfig.fromAudioFileOutput(__dirname + "/../audios/" + operationId + "/processing.mp3");
     const speechConfig = sdk.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
 
     // Check if audio folder hasn't exceeded 200MB
@@ -26,6 +27,8 @@ async function reader(operationId, text) {
         synthesizer.speakTextAsync(text,
             function (result) {
                 if (result.reason === sdk.ResultReason.SynthesizingAudioCompleted) {
+                    // Rename processing to audio.mp3
+                    fs.renameSync("./audios/" + operationId + "/processing.mp3", "./audios/" + operationId + "/audio.mp3");
                     console.log("synthesis finished.");
                     synthesizer.close();
                     synthesizer = undefined;
