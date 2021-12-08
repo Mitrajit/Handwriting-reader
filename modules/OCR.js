@@ -30,6 +30,20 @@ async function OCRupload(handwrittenImagePath) {
         if (err) throw err;
         console.log(`${handwrittenImagePath} was deleted`);
     });
+    setTimeout(async () => {
+        let result;
+        do {
+            result = await OCRcheck(operationIdLocal);
+            if (result.status === "succeeded") {
+                console.log("The texts are:");
+                for (const textRecResult of result.content) {
+                  for (const line of textRecResult.lines) {
+                    console.log(line.text)
+                  }
+                }
+              }
+        } while (result.status !== "succeeded");
+    }, 0);
     return operationIdLocal;
 }
 
