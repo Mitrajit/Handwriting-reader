@@ -14,6 +14,3 @@ fetch(window.location.pathname + '/text', {
 }).catch(function (err) {
     console.log(err);
 });
-
-document.querySelector("audio source").src = window.location.pathname + "/audio";
-document.querySelector("audio").load();
