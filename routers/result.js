@@ -4,7 +4,7 @@ const {OCRcheck} = require("../modules/OCR");
 const fs = require("fs");
 
 router.get("/:id", (req, res) => {
-  const file = __dirname + "/../audios/" + req.params.id + ".wav";
+  const file = __dirname + "/../audios/" + req.params.id + "/audio.mp3";
   if (fs.existsSync(file))
     res.sendFile("views/result.html", { root: __dirname + "/../" });
   else
@@ -34,7 +34,7 @@ router.get("/:id/text",async (req,res)=>{
 
 router.get("/:id/audio", (req, res)=>{
   console.log(req.params.id);
-  res.sendFile("audios/"+req.params.id+".wav",{root: __dirname+"/../"});
+  res.sendFile("audios/"+req.params.id+"/audio.mp3",{root: __dirname+"/../"});
 });
 
 module.exports = router;
