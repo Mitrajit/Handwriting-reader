@@ -1,6 +1,6 @@
 const ocrtext = document.querySelector('#ocrtext');
 
-fetch(window.location.pathname + '/text', {
+fetch(window.location.pathname + 'text', {
     method: 'GET'
 }).then(function (response) {
     return response.json();
