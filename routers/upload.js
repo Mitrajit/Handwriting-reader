@@ -45,16 +45,8 @@ router.post("/ocrcheck",async (req,res)=>{
     const { operationId } = req.body;
     if (fs.existsSync(__dirname + "/../audios/" + operationId + "/audio.mp3")) 
       return res.status(200).json({ status: "succeeded" });
-    const output = await OCRcheck(operationId);
-    if (output.status === "succeeded") {
-      console.log("The texts are:");
-      for (const textRecResult of output.content) {
-        for (const line of textRecResult.lines) {
-          console.log(line.text)
-        }
-      }
-    }
-    res.status(200).json({ status: output.status });
+    else
+      return res.status(200).json({ status: "running" });
   }
   catch(err){
     console.log(err);
