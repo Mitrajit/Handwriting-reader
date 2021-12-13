@@ -4,6 +4,8 @@ const {OCRcheck} = require("../modules/OCR");
 const fs = require("fs");
 
 router.get("/:id", (req, res) => {
+  // If pathname does not end with / then redirect to /result/:id/
+  req.path.endsWith("/") || res.redirect(req.path.substring(1) + "/");
   const file = __dirname + "/../audios/" + req.params.id + "/audio.mp3";
   if (fs.existsSync(file))
     res.sendFile("views/result.html", { root: __dirname + "/../" });
