@@ -52,25 +52,49 @@ async function reader(operationId, text) {
 
 function sizeCheck() {
     return new Promise((resolve, reject) => {
-        // Check if the audios directory is larget than 200MB
+        // Check if the audios directory is larger than 200MB recursively
         const files = fs.readdirSync("./audios");
         let size = 0;
-        files.forEach(file => {
-            size += fs.statSync("./audios/" + file).size;
-        });
+        for(let i = 0; i < files.length; i++) {
+            let file = files[i];
+            file = { name: file, size: getSize("./audios/" + file), time: fs.statSync("./audios/" + file).mtime.getTime() };
+            size += file.size;
+            files[i] = file;
+        }
         if (size > 200 * 1024 * 1024) {
             // Delete the oldest files upto 10MB
             files.sort((a, b) => {
-                return fs.statSync("./audios/" + a).mtime.getTime() - fs.statSync("./audios/" + b).mtime.getTime();
+                return a.time - b.time;
             });
             let deletedsize = 0;
             for (let i = 0; deletedsize < 10 * 1024 * 1024; i++) {
-                deletedsize += fs.statSync("./audios/" + files[i]).size;
-                fs.unlinkSync("./audios/" + files[i]);
-                console.log("Deleting " + files[i]);
+                deletedsize += files[i].size;
+                if(fs.statSync("./audios/" + files[i].name).isDirectory())
+                // Delete folder
+                    fs.rmdirSync("./audios/" + files[i].name, { recursive: true });
+                else
+                // Delete file if any added for backwards compatibility
+                    fs.unlinkSync("./audios/" + files[i].name);
+                console.log("Deleting " + files[i].name);
             }
         }
         resolve();
     });
 }
+
+function getSize(path){
+    // Get the size of a file or folder recursively
+    let size = 0;
+    if(fs.statSync(path).isDirectory()){
+        const files = fs.readdirSync(path);
+        files.forEach(file => {
+            size += getSize(path + "/" + file);
+        });
+    }
+    else{
+        size += fs.statSync(path).size;
+    }
+    return size;
+}
+
 module.exports = reader;
