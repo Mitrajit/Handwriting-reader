@@ -1,18 +1,3 @@
-async function formSubmit(event) {
-    event.preventDefault();
-    try {
-        const url = "/upload";
-        json = await (await fetch(url, {
-            method: 'POST',
-            body: new FormData(event.target)
-        })).json();
-        console.log(json);
-        ocrcheckup();
-        checkupinterval = setInterval(ocrcheckup, 1000);
-    } catch (ex) {
-        console.log('parsing failed', ex);
-    }
-}
 var checkupinterval;
 async function ocrcheckup(json) {
     try {
@@ -47,8 +32,6 @@ async function ocrcheckup(json) {
         clearInterval(checkupinterval);
     }
 }
-// Custom function to upload file wihtout redirection
-document.getElementById("uploadform").addEventListener("submit", formSubmit);
 
 const body = document.querySelector('body')
 const upload = document.querySelector('.upload')
