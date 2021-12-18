@@ -1,6 +1,6 @@
 {
   "name": "handwriting-reader",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "A simple web app that aims to make audiobook out of the given pictures. Azure computer vision OCR was used to recognise the text. Then azure cognitive text to speech service is used to get the audio output.",
   "main": "index.js",
   "repository": {
@@ -22,12 +22,12 @@
     "@azure/cognitiveservices-computervision": "^8.1.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
-    "microsoft-cognitiveservices-speech-sdk": "^1.19.0",
-    "multer": "^1.4.4"
+    "formidable": "^2.0.1",
+    "microsoft-cognitiveservices-speech-sdk": "^1.19.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
     "async": "^3.2.2",
+    "nodemon": "^2.0.15",
     "readline": "^1.3.0"
   }
 }
